@@ -11,9 +11,10 @@ class Word:
         """
         The Class Constructor
         """
-        super.__init__()
-        self.prepare_words()
         self._list_of_words = []
+        super().__init__()
+        self.prepare_words()
+        #self._list_of_words = []
 
     def prepare_words(self):
         """
@@ -21,8 +22,8 @@ class Word:
         """
         for x in range(constants.STARTING_WORDS):
             word = (random.choice(constants.LIBRARY))
-            position = Point(random.randint(0, constants.MAX_X), random.randint(0, constant.MAX_Y / 2))
-            velocity = Point(0, -1)
+            position = Point(random.randint(0, constants.MAX_X), random.randint(0, constants.MAX_Y / 2))
+            velocity = Point(0, 1)
             self.add_word(word, position, velocity)
     
     def add_word(self, word, position, velocity):
@@ -46,8 +47,8 @@ class Word:
         This will add a new word to the list of words
         """
         word = (random.choice(constants.LIBRARY))
-        position = Point(random.randint(0, constants.MAX_X), random.randint(0, constant.MAX_Y / 2))
-        velocity = Point(0, -1)
+        position = Point(random.randint(0, constants.MAX_X), random.randint(0, constants.MAX_Y / 2))
+        velocity = Point(0, 1)
         self.add_word(word, position, velocity)
 
     def move_words(self):
@@ -55,7 +56,7 @@ class Word:
         This will move all the words down
         """
         count = len(self._list_of_words) - 1
-        for n in range(0, count):
+        for n in range(count, -1, -1):
             word = self._list_of_words[n]
             velocity = word.get_velocity()
             word.set_velocity(velocity)
