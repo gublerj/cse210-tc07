@@ -21,7 +21,7 @@ class Word:
         """
         for x in range(constants.STARTING_WORDS):
             word = (random.choice(constants.LIBRARY))
-            position = Point(random.randint(0, constants.MAX_X), random.randint(10, constant.MAX_Y)
+            position = Point(random.randint(0, constants.MAX_X), random.randint(0, constant.MAX_Y / 2))
             velocity = Point(0, -1)
             self.add_word(word, position, velocity)
     
@@ -46,7 +46,7 @@ class Word:
         This will add a new word to the list of words
         """
         word = (random.choice(constants.LIBRARY))
-        position = Point(random.randint(0, constants.MAX_X), constant.MAX_Y)
+        position = Point(random.randint(0, constants.MAX_X), random.randint(0, constant.MAX_Y / 2))
         velocity = Point(0, -1)
         self.add_word(word, position, velocity)
 
