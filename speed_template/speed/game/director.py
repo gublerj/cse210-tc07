@@ -32,7 +32,6 @@ class Director:
         self._output_service = output_service
         self._score = Score()
         self._words = Word()
-        self._buffer_text
         
     def start_game(self):
         """Starts the game loop to control the sequence of play.
@@ -53,11 +52,12 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
-        letter = input_service.get_letter()
+        letter = self._input_service.get_letter()
         if letter == '*':
-            buffer.empty_word()
+            self.buffer.empty_word()
         else:
-            buffer.prep_display(letter)
+            self.buffer.prep_display(letter)
+        self._words.move_words()
         
 
     def _do_updates(self):
@@ -67,7 +67,7 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
-        _compare_word()
+        self._compare_word()
         
     def _do_outputs(self):
         """Outputs the important game information for each round of play. In 
@@ -78,9 +78,9 @@ class Director:
             self (Director): An instance of Director.
         """
         self._output_service.clear_screen()
-        self._output_service.draw_actor(self.buffer)
-        self._output_service.draw_actors(self.words.get_words)
+        self._output_service.draw_actors(self._words.get_words())
         self._output_service.draw_actor(self._score)
+        self._output_service.draw_actor(self.buffer)
         self._output_service.flush_buffer()
 
     def _compare_word(self):
@@ -89,13 +89,14 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
-        list_of_words = self.words.get_words()
-        compare = buffer.get_typed_word()
-        for n in len(list_of_words):
-            words = list_of_words[n]
-            word = words.get_text()
-            if word == compare:
-                self._words.remove_word(n)
-                self.score.add_points(1)
+        list_of_words = self._words.get_words()
+        compare = self.buffer.get_typed_word()
+        count = -1
+        for n in list_of_words:
+            count = count + 1
+            if compare == n.get_text():
+                self._words.remove_word(count)
+                self._score.add_points(1)
+                self._words.new_word()
 
         
