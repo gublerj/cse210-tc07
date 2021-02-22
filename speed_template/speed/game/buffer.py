@@ -1,5 +1,6 @@
 from game.actor import Actor
 from game.point import Point
+from game import constants
 
 class Buffer(Actor):
     """
@@ -21,7 +22,7 @@ class Buffer(Actor):
         super().__init__()
         self._word = ""
         # Sets position to the bottom of the terminal (top left is 0,0)
-        position = Point(1, 20)
+        position = Point(1, constants.MAX_Y)
         self.set_position(position)
         self.set_text(f"Buffer: {self._word}")
     
